@@ -1,0 +1,39 @@
+<h2>Export</h2>
+<button id="exportbttn" onclick="createExport()">Export localStorage</button>
+<a id="download"></a>
+<h2>Import</h2>
+<input type="file" accept="application/JSON" id="uploadfile">  <button id="importbttn" onclick="importPref()">Import</button>
+
+<script>
+   const createExport = () => {
+     if (localStorage.length) {
+       const url = URL.createObjectURL(new Blob([JSON.stringify(localStorage)]))
+       const d = document.getElementById('download')
+       d.setAttribute('href', url)
+       d.setAttribute('download', `localstorage.json`/*CHANGE FILE NAME HERE*/ )
+       d.click()
+     } else {
+       document.getElementById('exportbttn').innerHTML = `No data to download.`
+          setTimeout(() => {
+       document.getElementById("exportbttn").innerHTML = 'Export localStorage'
+   }, 3000)
+     }
+   }
+   
+   
+   const importPref = () => {
+   if(!document.getElementById('uploadfile').files[0]){document.getElementById("importbttn").innerHTML = 'No file'
+   setTimeout(() => {
+       document.getElementById("importbttn").innerHTML = 'Import'
+   }, 3000)}
+   fetch(URL.createObjectURL(new Blob([document.getElementById('uploadfile').files[0]]))).then(response => response.json()).then(d => {
+   for(const key in d){
+   localStorage.setItem(key,d[key])
+   }
+   document.getElementById("importbttn").innerHTML = 'Transfered!'
+   setTimeout(() => {
+       document.getElementById("importbttn").innerHTML = 'Import'
+   }, 3000)
+   })
+   }  
+</script>
