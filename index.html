@@ -7,13 +7,12 @@
 <script>
    const createExport = () => {
      if (localStorage.length) {
-       const url = URL.createObjectURL(new Blob([JSON.stringify(localStorage)]))
        const d = document.getElementById('download')
-       d.setAttribute('href', url)
+       d.setAttribute('href',  URL.createObjectURL(new Blob([JSON.stringify(localStorage)])))
        d.setAttribute('download', `localstorage.json`/*CHANGE FILE NAME HERE*/ )
        d.click()
      } else {
-       document.getElementById('exportbttn').innerHTML = `No data to download.`
+       document.getElementById('exportbttn').innerHTML = 'No data to download.'
           setTimeout(() => {
        document.getElementById("exportbttn").innerHTML = 'Export localStorage'
    }, 3000)
