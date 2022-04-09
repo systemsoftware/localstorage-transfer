@@ -24,7 +24,7 @@
    if(!document.getElementById('uploadfile').files[0]){document.getElementById("importbttn").innerHTML = 'No file'
    setTimeout(() => {
        document.getElementById("importbttn").innerHTML = 'Import'
-   }, 3000)}
+   }, 3000)}else{
    fetch(URL.createObjectURL(new Blob([document.getElementById('uploadfile').files[0]]))).then(response => response.json()).then(d => {
    for(const key in d){
    localStorage.setItem(key,d[key])
@@ -34,5 +34,6 @@
        document.getElementById("importbttn").innerHTML = 'Import'
    }, 3000)
    })
+  }
    }  
 </script>
